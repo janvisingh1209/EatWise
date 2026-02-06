@@ -1,0 +1,13 @@
+# Node dependencies
+node_modules/
+eatwise-backend/node_modules/
+eatwise-frontend/node_modules/
+
+# Environment variables
+.env
+eatwise-backend/.env
+
+# Python / ML
+**/__pycache__/
+ml-server/venv/
+*.pkl
