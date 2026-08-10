@@ -3,11 +3,13 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+from flask_cors import CORS
 
 # -------------------------
 # Initialize Flask App
 # -------------------------
 app = Flask(__name__)
+CORS(app)
 
 # -------------------------
 # Load Model & Encoders
