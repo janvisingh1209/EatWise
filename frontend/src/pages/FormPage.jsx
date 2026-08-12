@@ -19,7 +19,7 @@ const FormPage = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/register", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, {
         age,
         disease,
         preference: foodPref,

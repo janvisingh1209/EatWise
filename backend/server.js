@@ -1,11 +1,12 @@
 // server.js
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const axios = require("axios"); // ✅ to call Flask API
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -31,8 +32,9 @@ app.post("/api/register", async (req, res) => {
   console.log("✅ Data received from frontend:", newEntry);
 
   try {
-    // 🔗 Send data to Flask ML API
-    const flaskResponse = await axios.post("http://127.0.0.1:6000/predict", {
+    // 🔗 Send data to ML API (configurable via ML_SERVER_URL)
+    const mlServerBase = process.env.ML_SERVER_URL || 'http://127.0.0.1:6000';
+    const flaskResponse = await axios.post(`${mlServerBase.replace(/\/+$/, '')}/predict`, {
       age,
       disease,
       preference,
