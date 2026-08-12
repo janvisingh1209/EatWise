@@ -32,6 +32,9 @@ def home():
     return "🚀 ML Model API is running!"
 
 
+# Build a lowercased lookup for disease label matching
+DISEASE_LOOKUP = {cls.lower(): cls for cls in le_disease.classes_}
+
 # -------------------------
 # Predict Route
 # -------------------------
@@ -52,12 +55,12 @@ def predict():
         if not all([age, disease_name, preference]):
             return jsonify({"error": "Missing fields in request"}), 400
 
-        # Check if disease exists in encoder classes
-        if disease_name not in le_disease.classes_:
+        disease_key = str(disease_name).strip().lower()
+        if disease_key not in DISEASE_LOOKUP:
             raise ValueError(f"Disease '{disease_name}' not found in training data")
 
-        # Encode disease
-        disease_enc = le_disease.transform([disease_name])[0]
+        disease_label = DISEASE_LOOKUP[disease_key]
+        disease_enc = le_disease.transform([disease_label])[0]
         foods = data["Food"].unique()
         results = []
 
