@@ -1,5 +1,5 @@
 {
-  "name": "eatwise-frontend",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -27,4 +27,4 @@
     "globals": "^16.4.0",
     "vite": "^7.1.7"
   }
-}
+    "name": "frontend",

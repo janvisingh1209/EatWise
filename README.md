@@ -3,6 +3,11 @@ EatWise 🍽️🤖
 EatWise is an AI-driven, disease-specific food recommendation system that helps users make healthier dietary choices based on medical conditions.
 
 ## 🧩 Project Structure
+The project folders were renamed to reflect clearer roles:
+
+- `frontend/` — React + Vite application (previously eatwise-frontend)
+- `backend/` — Node/Express server (previously eatwise-backend)
+- `ml-server/` — Python ML service
 
 ## 🚀 Tech Stack
 
