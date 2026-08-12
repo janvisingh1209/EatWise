@@ -38,7 +38,10 @@ app.post("/api/register", async (req, res) => {
       age,
       disease,
       preference,
-    });
+    },
+  {
+  timeout: 60000, // 60 seconds, enough to survive a cold start
+});
 
     console.log("✅ Response from Flask ML:", flaskResponse.data);
 
