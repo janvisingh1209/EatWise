@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Routes, Route,  Navigate, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route,  Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
 
 // ---------------------------
@@ -36,8 +36,14 @@ const EatWiseForm = () => {
       console.log("Response from backend:", response.data);
 
       // ✅ Redirect to results page with ML results
-      if (response.data.mlResult) {
-        navigate("/result", { state: { mlResult: response.data.mlResult } });
+if (response.data.mlResult) {
+  sessionStorage.setItem(
+    "mlResult",
+    JSON.stringify(response.data.mlResult)
+  );
+
+  navigate("/result");
+}
       } else {
         setError("No ML result received from backend.");
       }

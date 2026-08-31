@@ -3,10 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "../App.css";
 
 const ResultPage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const mlResult = location.state?.mlResult;
 
+const storedResult = sessionStorage.getItem("mlResult");
+
+const mlResult = storedResult
+  ? JSON.parse(storedResult)
+  : null;
   if (!mlResult) {
     return (
       <div className="background-container">
