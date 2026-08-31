@@ -157,6 +157,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<EatWiseForm />} />
         <Route path="/result" element={<ResultPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
