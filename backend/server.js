@@ -11,6 +11,20 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+const ML_SERVER_URL = "https://eatwise-ml-server.onrender.com";
+setInterval(() => {
+  axios.get(`${ML_SERVER_URL}/`)
+    .then(() => {
+      console.log("✅ ML-Server pinged - staying warm");
+    })
+    .catch(err => {
+      console.log("⚠️ Ping failed:", err.message);
+    });
+}, 8 * 60 * 1000); // Ping every 8 minutes
+
+console.log("🔄 Keep-alive ping started for ML-Server");
+// ===== END KEEP-ALIVE PING =====
+
 // Temporary storage
 let formDataList = [];
 
