@@ -13,45 +13,46 @@ const EatWiseForm = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  if (age < 0) {
+    setError("Age cannot be negative!");
+    return;
+  }
 
-    if (age < 0) {
-      setError("Age cannot be negative!");
-      return;
-    }
+  setError("");
+  setMessage("");
 
-    setError("");
-    setMessage("");
-
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/register`,
+      {
         age,
         disease,
         preference: foodPref,
-      });
-
-      setMessage("✅ " + response.data.message);
-      console.log("Response from backend:", response.data);
-
-      // ✅ Redirect to results page with ML results
-if (response.data.mlResult) {
-  sessionStorage.setItem(
-    "mlResult",
-    JSON.stringify(response.data.mlResult)
-  );
-
-  navigate("/result");
-}
-      } else {
-        setError("No ML result received from backend.");
       }
-    } catch (error) {
-      console.error("❌ Error sending data:", error);
-      setMessage("❌ Failed to connect to backend. Check console.");
+    );
+
+    setMessage("✅ " + response.data.message);
+    console.log("Response from backend:", response.data);
+
+    if (response.data.mlResult) {
+      sessionStorage.setItem(
+        "mlResult",
+        JSON.stringify(response.data.mlResult)
+      );
+
+      navigate("/result");
+    } else {
+      setError("No ML result received from backend.");
     }
-  };
+
+  } catch (error) {
+    console.error("❌ Error sending data:", error);
+    setMessage("❌ Failed to connect to backend. Check console.");
+  }
+};
 
   return (
     <div className="background-container">
