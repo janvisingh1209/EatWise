@@ -5,17 +5,19 @@ import "../App.css";
 const ResultPage = () => {
   const navigate = useNavigate();
 
-const storedResult = sessionStorage.getItem("mlResult");
+  const storedResult = sessionStorage.getItem("mlResult");
 
-const mlResult = storedResult
-  ? JSON.parse(storedResult)
-  : null;
+  const mlResult = storedResult
+    ? JSON.parse(storedResult)
+    : null;
+
   if (!mlResult) {
     return (
       <div className="background-container">
+        <div className="overlay"></div>
         <div className="content-box">
-          <h2>No results found 😕</h2>
-          <button onClick={() => navigate("/")}>Go Back</button>
+          <h2>No results available 😕</h2>
+          <button onClick={() => navigate("/")}>🔙 Go Back</button>
         </div>
       </div>
     );
@@ -23,30 +25,37 @@ const mlResult = storedResult
 
   return (
     <div className="background-container">
+      <div className="overlay"></div>
       <div className="content-box">
         <h1 className="title">🍏 Recommended Foods</h1>
-        <ul>
-          {mlResult.recommended && mlResult.recommended.length > 0 ? (
-            mlResult.recommended.map((food, index) => (
+
+        {mlResult.recommended && mlResult.recommended.length > 0 ? (
+          <ul>
+            {mlResult.recommended.map((food, index) => (
               <li key={index}>{food}</li>
-            ))
-          ) : (
-            <p>No recommended foods found.</p>
-          )}
-        </ul>
+            ))}
+          </ul>
+        ) : (
+          <p>No recommended foods found.</p>
+        )}
 
         <h1 className="title" style={{ color: "#e53935" }}>
           ❌ Foods to Avoid
         </h1>
-        <ul>
-          {mlResult.avoid && mlResult.avoid.length > 0 ? (
-            mlResult.avoid.map((food, index) => <li key={index}>{food}</li>)
-          ) : (
-            <p>No avoid foods found.</p>
-          )}
-        </ul>
 
-        <button onClick={() => navigate("/")}>🔙 Back to Form</button>
+        {mlResult.avoid && mlResult.avoid.length > 0 ? (
+          <ul>
+            {mlResult.avoid.map((food, index) => (
+              <li key={index}>{food}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No foods to avoid found.</p>
+        )}
+
+        <button onClick={() => navigate("/")}>
+          🔙 Back to Form
+        </button>
       </div>
     </div>
   );
