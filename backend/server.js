@@ -81,14 +81,14 @@ app.get("/", (req, res) => {
   res.send("🚀 EatWise Backend is Running!");
 });
 // ===== SERVE FRONTEND STATIC FILES =====
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "dist")));
 // OR if your build folder is named differently:
 // app.use(express.static(__dirname + "/build"));
 
 // ===== CATCH-ALL ROUTE FOR SPA =====
 // This must come AFTER all API routes (/api/register, /api/data, etc.)
 app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 // ===== END CATCH-ALL =====
 
