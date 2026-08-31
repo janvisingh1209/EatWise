@@ -87,10 +87,8 @@ app.use(express.static(path.join(__dirname, "build")));
 
 // ===== CATCH-ALL ROUTE FOR SPA =====
 // This must come AFTER all API routes (/api/register, /api/data, etc.)
-app.get("*", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
-  // OR if your build folder is named differently:
-  // res.sendFile(__dirname + "/build/index.html");
 });
 // ===== END CATCH-ALL =====
 
